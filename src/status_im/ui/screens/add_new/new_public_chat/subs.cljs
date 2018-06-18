@@ -9,4 +9,3 @@
   (fn [topic]
     (when-not (spec/valid? ::db/topic topic)
       "Group topic error")))
-
