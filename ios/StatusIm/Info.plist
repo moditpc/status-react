@@ -81,6 +81,10 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>launch-image-universal</string>
+	<key>UIMainStoryboardFile</key>
+	<string>launch-image-universal</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
