@@ -32,24 +32,26 @@
          [icons/icon :icons/group-chat])
        [react/image {:style {:width 46 :height 46 :border-radius 46 :margin-right 16}
                      :source {:uri photo-path}}]
-       [react/view #_{:style {:padding-right 26}}
+       [react/view {:style {:margin-right 25 :width 183}}
         [react/text {:style {:font-size 14
                              :font-weight (if (= current-chat-id chat-id) 600 :normal)
-                             :ellipsizeMode :middle}} name]
+                             :ellipsize-mode :tail
+                             :number-of-lines 1
+                             }} name]
         [react/text {:style {:color "#939ba1"
                              :font-size 14}
-                     :ellipsizeMode :tail
+                     :ellipsize-mode :tail
                      :number-of-lines 1}
          (:content last-message)]]
-       [react/view
-        [chat-item/message-timestamp last-message]]
+       [react/view {:style {:justify-content :flex-start}}
+        [chat-item/message-timestamp last-message]
+        [react/text]]
        [react/view {:style {:flex 1}}]
        [unviewed-indicator chat-id]])))
 
 (defn chat-list-item [[chat-id chat]]
   [react/touchable-highlight {:on-press #(re-frame/dispatch [:navigate-to-chat chat-id])}
-   [react/view
-    [chat-list-item-inner-view (assoc chat :chat-id chat-id)]]])
+   [chat-list-item-inner-view (assoc chat :chat-id chat-id)]])
 
 (views/defview chat-list-view []
   (views/letsubs [home-items [:home-items]]
