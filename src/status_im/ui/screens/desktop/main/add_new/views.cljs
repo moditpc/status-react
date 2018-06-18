@@ -26,6 +26,7 @@
       [react/view {:style {:flex-direction :row :margin-top 16}}
        [react/text-input {:placeholder "0x..."
                           :flex 1
+                          :style {:font-size 14 :background-color "#eef2f5" :margin-right 12}
                           :on-change   (fn [e]
                                          (let [native-event (.-nativeEvent e)
                                                text (.-text native-event)]
@@ -62,6 +63,7 @@
        [react/view {:style {:flex 1}}
         [react/text-input {:placeholder "#"
                            :flex 1
+                           :style {:font-size 14 :background-color "#eef2f5" :margin-right 12}
                            :on-change   (fn [e]
                                           (let [native-event (.-nativeEvent e)
                                                 text (.-text native-event)]
