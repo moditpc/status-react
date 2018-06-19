@@ -3,6 +3,7 @@
   (:require [re-frame.core :as re-frame]
             [status-im.utils.gfycat.core :as gfycat]
             [status-im.ui.screens.desktop.main.tabs.home.styles :as styles]
+            [clojure.string :as string]
             [status-im.ui.screens.home.views.inner-item :as chat-item]
             [taoensso.timbre :as log]
             [status-im.ui.components.icons.vector-icons :as icons]
@@ -26,17 +27,22 @@
       ;(log/debug "chat-list-item:" chat-item)
       ;(log/debug "last-message" last-message)
       [react/view {:style (merge styles/chat-list-item {:background-color (if (= current-chat-id chat-id) "#eef2f5" :white)})}
-       (when public?
-         [icons/icon :icons/public-chat])
-       (when (and group-chat (not public?))
-         [icons/icon :icons/group-chat])
-       [react/image {:style styles/chat-icon
-                     :source {:uri photo-path}}]
+       (if public?
+         [react/view {:style styles/topic-image}
+          [react/text {:style styles/topic-text} 
+           (string/capitalize (second name))]]
+         [react/image {:style styles/chat-icon
+                     :source {:uri photo-path}}])
        [react/view {:style styles/chat-name-last-msg-box}
-        [react/text {:ellipsize-mode :tail
-                     :number-of-lines 1
-                     :style (merge styles/chat-name {:font-weight (if (= current-chat-id chat-id) "600" :normal) })}
-         name]
+        [react/view {:style styles/chat-name-box}
+         (when (and group-chat (not public?))
+           [icons/icon :icons/group-chat])
+         (when public?
+           [icons/icon :icons/public-chat])
+         [react/text {:ellipsize-mode :tail
+                      :number-of-lines 1
+                      :style (merge styles/chat-name {:font-weight (if (= current-chat-id chat-id) "600" :normal) })}
+          name]]
         [react/text {:ellipsize-mode :tail 
                      :number-of-lines 1
                      :style styles/chat-last-message}

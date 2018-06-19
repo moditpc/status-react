@@ -56,3 +56,13 @@
    :height 46 
    :border-radius 46 
    :margin-right 16})
+
+(def suggested-topic-image
+  (merge suggested-contact-image
+         {:background-color "#4360df"
+          :align-items :center
+          :justify-content :center}))
+
+(def suggested-topic-text
+  {:font-size 25.6 
+   :color :white})

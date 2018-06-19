@@ -1,11 +1,16 @@
 (ns status-im.ui.screens.desktop.main.add-new.views
   (:require-macros [status-im.utils.views :as views])
   (:require [status-im.ui.components.icons.vector-icons :as icons]
+            [status-im.ui.screens.add-new.new-public-chat.view :as public-chat]
+            [status-im.ui.components.list.views :as list]
+            [clojure.string :as string]
             [re-frame.core :as re-frame]
             [status-im.ui.screens.desktop.main.add-new.styles :as styles]
             [status-im.ui.screens.add-new.new-public-chat.db :as public-chat-db]
             [taoensso.timbre :as log]
             [status-im.ui.components.react :as react]))
+
+(def default-public-chats ["status" "openbounty" "edcon" "ethereum"])
 
 (views/defview new-contact []
   (views/letsubs [new-contact-identity [:get :contacts/new-identity]
@@ -70,4 +75,16 @@
        [react/touchable-highlight {:on-press #(when-not topic-error (re-frame/dispatch [:create-new-public-chat topic]))}
         [react/view {:style (merge styles/add-contact-button {:background-color (if topic-error "#eef2f5" "#4360df") })}
 
-         [react/text {:style (merge styles/add-contact-button-text {:color (if topic-error "#939ba1" :white)})} "Join public chat"]]]]]]))
+         [react/text {:style (merge styles/add-contact-button-text {:color (if topic-error "#939ba1" :white)})} "Join public chat"]]]]
+      [react/text {:style styles/new-contact-subtitle} "Selected for you"]
+      [react/view {:style {:margin-top 12}} 
+       (doall
+         (for [topic public-chat/default-public-chats]
+           ^{:key topic}
+           [react/touchable-highlight {:on-press #(do
+                                                    (re-frame/dispatch [:set :public-group-topic topic])
+                                                    (re-frame/dispatch [:create-new-public-chat topic]))}
+            [react/view {:style styles/suggested-contact-view}
+             [react/view {:style styles/suggested-topic-image}
+              [react/text {:style styles/suggested-topic-text} (string/capitalize (first topic)) ]]
+             [react/text {:style styles/new-contact-subtitle} topic]]]))]]]))

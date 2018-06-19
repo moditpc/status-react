@@ -33,6 +33,10 @@
    :background-color "#e8ebec" 
    :margin-horizontal 16})
 
+(def chat-name-box
+  {:flex-direction :row 
+   :align-items :center})
+
 (def chat-name-last-msg-box
   {:margin-right 25 
    :width 183})
@@ -51,3 +55,13 @@
    :border-radius 34
    :justify-content :center
    :align-items :center})
+
+(def topic-image
+  (merge chat-icon
+         {:background-color "#4360df"
+          :align-items :center
+          :justify-content :center}))
+
+(def topic-text
+  {:font-size 25.6 
+   :color :white})
