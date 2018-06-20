@@ -2,6 +2,7 @@
   (:require [re-frame.core :as re-frame]
             [status-im.ui.components.icons.vector-icons :as icons]
             [taoensso.timbre :as log]
+            [status-im.ui.components.colors :as colors]
             [status-im.ui.components.react :as react]
             [status-im.ui.screens.main-tabs.styles :as tabs.styles])
   (:require-macros [status-im.utils.views :as views]))
@@ -27,7 +28,7 @@
     [react/view {:style tabs.styles/tab-container}
      (let [icon (if active? icon-active icon-inactive)]
        [react/view
-        [icons/icon icon {:style {:tint-color (if active? "#4360df" "#6e777e")}}]])
+        [icons/icon icon {:style {:tint-color (if active? colors/blue colors/gray-icon)}}]])
      [react/view
       [react/text {:style (tabs.styles/tab-title active?)}
        title]]]))
