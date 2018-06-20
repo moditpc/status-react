@@ -2,6 +2,8 @@
   (:require-macros [status-im.utils.views :as views])
   (:require [re-frame.core :as re-frame]
             [status-im.utils.gfycat.core :as gfycat]
+            [status-im.i18n :as i18n]
+            
             [status-im.ui.screens.desktop.main.tabs.home.styles :as styles]
             [clojure.string :as string]
             [status-im.ui.screens.home.views.inner-item :as chat-item]
@@ -46,7 +48,7 @@
         [react/text {:ellipsize-mode  :tail 
                      :number-of-lines 1
                      :style           styles/chat-last-message}
-         (:content last-message)]]
+         (or (:content last-message) (i18n/label :no-messages-yet))]]
        [react/view
         [chat-item/message-timestamp last-message]
         [react/text]]

@@ -82,6 +82,7 @@
    :active-unknown                       "Unknown"
    :available                            "Available"
    :no-messages                          "No messages"
+   :no-messages-yet                      "No messages yet"
    :suggestions-requests                 "Requests"
    :suggestions-commands                 "Commands"
    :faucet-success                       "Faucet request has been received"
