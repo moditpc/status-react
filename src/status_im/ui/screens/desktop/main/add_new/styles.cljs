@@ -1,8 +1,9 @@
-(ns status-im.ui.screens.desktop.main.add-new.styles)
+(ns status-im.ui.screens.desktop.main.add-new.styles
+  (:require [status-im.ui.components.colors :as colors]))
 
 (def new-contact-view
   {:flex 1 
-   :background-color :white 
+   :background-color colors/white 
    :margin-left 24 
    :margin-right 37})
 
@@ -20,31 +21,33 @@
   {:font-size 14})
 
 (def new-contact-separator
-  {:height 1 :background-color "#e8ebec"})
+  {:height 1 :background-color colors/gray-light})
 
 (def add-contact-edit-view
   {:height 45 
    :margin-bottom 32 
-   :background-color :white 
+   :background-color colors/white 
    :border-radius 12
    :flex-direction :row 
    :margin-top 16})
 
 (def add-contact-input
   {:font-size 14 
-   :background-color "#eef2f5" 
+   :background-color colors/gray-lighter
    :margin-right 12 
    :border-radius 8})
 
-(def add-contact-button 
+(defn add-contact-button [error?]
   {:width 140 
    :height 45 
    :border-radius 8 
+   :background-color (if error? colors/gray-lighter colors/blue) 
    :align-items :center
    :justify-content :center})
 
-(def add-contact-button-text 
-  {:font-size 16 })
+(defn add-contact-button-text [error?]
+  {:font-size 16
+   :color (if error? colors/gray colors/white)})
 
 (def suggested-contact-view
   {:flex-direction "row"
@@ -59,10 +62,10 @@
 
 (def suggested-topic-image
   (merge suggested-contact-image
-         {:background-color "#4360df"
+         {:background-color colors/blue
           :align-items :center
           :justify-content :center}))
 
 (def suggested-topic-text
   {:font-size 25.6 
-   :color :white})
+   :color colors/white})

@@ -37,11 +37,9 @@
                                            (re-frame/dispatch [:set :contacts/new-identity text])))}]
        [react/touchable-highlight {:on-press #(when-not chat-error (re-frame/dispatch [:add-contact-handler new-contact-identity]))}
         [react/view 
-         {:style (merge styles/add-contact-button 
-                        {:background-color (if chat-error "#eef2f5" "#4360df") })} 
+         {:style (styles/add-contact-button chat-error)} 
          [react/text 
-          {:style (merge styles/add-contact-button-text 
-                         {:color (if chat-error "#939ba1" :white)})} 
+          {:style (styles/add-contact-button-text chat-error)} 
           "Start chat"]]]]
       ^{:key "choosecontact"}
       [react/view
@@ -73,9 +71,8 @@
                                                 text (.-text native-event)]
                                             (re-frame/dispatch [:set :public-group-topic text])))}]]
        [react/touchable-highlight {:on-press #(when-not topic-error (re-frame/dispatch [:create-new-public-chat topic]))}
-        [react/view {:style (merge styles/add-contact-button {:background-color (if topic-error "#eef2f5" "#4360df") })}
-
-         [react/text {:style (merge styles/add-contact-button-text {:color (if topic-error "#939ba1" :white)})} "Join public chat"]]]]
+        [react/view {:style (styles/add-contact-button topic-error)}
+         [react/text {:style (styles/add-contact-button-text topic-error)} "Join public chat"]]]]
       [react/text {:style styles/new-contact-subtitle} "Selected for you"]
       [react/view {:style {:margin-top 12}} 
        (doall

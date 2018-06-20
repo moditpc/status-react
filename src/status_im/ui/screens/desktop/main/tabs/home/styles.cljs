@@ -1,20 +1,14 @@
 (ns status-im.ui.screens.desktop.main.tabs.home.styles
-  (:require-macros [status-im.utils.views :as views])
-  (:require [re-frame.core :as re-frame]
-            [status-im.utils.gfycat.core :as gfycat]
-            [status-im.ui.screens.home.styles :as styles]
-            [status-im.ui.screens.home.views.inner-item :as chat-item]
-            [taoensso.timbre :as log]
-            [status-im.ui.components.icons.vector-icons :as icons]
-            [status-im.ui.components.react :as react]))
+  (:require [status-im.ui.components.colors :as colors]))
 
 (def chat-list-view
   {:flex 1 
-   :background-color :white})
+   :background-color colors/white})
 
-(def chat-list-item
+(defn chat-list-item [current?]
   {:padding 12 
    :flex-direction :row 
+   :background-color (if current? colors/gray-lighter colors/white)
    :align-items :center})
 
 (def chat-list-header
@@ -30,7 +24,7 @@
 
 (def chat-list-separator
   {:height 1 
-   :background-color "#e8ebec" 
+   :background-color colors/gray-light
    :margin-horizontal 16})
 
 (def chat-name-box
@@ -41,15 +35,16 @@
   {:margin-right 25 
    :width 183})
 
-(def chat-name
-  {:font-size 14}) 
+(defn chat-name [current?]
+  {:font-size 14
+   :font-weight (if current? "600" :normal) }) 
 
 (def chat-last-message 
-  {:color "#939ba1"
+  {:color colors/gray
    :font-size 14})
 
 (def add-new
-  {:background-color "#0000ff"
+  {:background-color colors/blue
    :width 34
    :height 34
    :border-radius 34
@@ -58,10 +53,10 @@
 
 (def topic-image
   (merge chat-icon
-         {:background-color "#4360df"
+         {:background-color colors/blue
           :align-items :center
           :justify-content :center}))
 
 (def topic-text
   {:font-size 25.6 
-   :color :white})
+   :color colors/white})

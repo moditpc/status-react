@@ -26,7 +26,7 @@
                      (gfycat/generate-gfy public-key)))]
       ;(log/debug "chat-list-item:" chat-item)
       ;(log/debug "last-message" last-message)
-      [react/view {:style (merge styles/chat-list-item {:background-color (if (= current-chat-id chat-id) "#eef2f5" :white)})}
+      [react/view {:style (styles/chat-list-item (= current-chat-id chat-id))}
        (if public?
          [react/view {:style styles/topic-image}
           [react/text {:style styles/topic-text} 
@@ -41,7 +41,7 @@
            [icons/icon :icons/public-chat])
          [react/text {:ellipsize-mode :tail
                       :number-of-lines 1
-                      :style (merge styles/chat-name {:font-weight (if (= current-chat-id chat-id) "600" :normal) })}
+                      :style (styles/chat-name (= current-chat-id chat-id))}
           name]]
         [react/text {:ellipsize-mode :tail 
                      :number-of-lines 1
