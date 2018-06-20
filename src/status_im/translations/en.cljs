@@ -202,6 +202,7 @@
    ;;chats
    :new                                  "New"
    :new-chat                             "New chat"
+   :start-chat                           "Start chat"
    :start-new-chat                       "Start new chat"
    :start-group-chat                     "Start group chat"
    :invite-friends                       "Invite friends"
@@ -214,6 +215,7 @@
    :delete-group-chat-confirmation       "Are you sure you want to delete this group chat?"
    :new-group-chat                       "New group chat"
    :new-public-group-chat                "Join public chat"
+   :selected-for-you                     "Selected for you"
    :public-chat                          "Public chat"
    :edit-chats                           "Edit chats"
    :search-chats                         "Search chats"
@@ -257,6 +259,7 @@
    :search-contacts                      "Search contacts"
    :contacts-group-new-chat              "Start new chat"
    :choose-from-contacts                 "Choose from contacts"
+   :or-choose-a-contact                  "Or choose a contact"
    :no-contacts                          "No contacts yet"
    :show-qr                              "Show QR code"
    :qr-code-public-key-hint              "Share this code to \nstart chatting"

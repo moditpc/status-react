@@ -17,9 +17,9 @@
         @unviewed-messages-count]])))
 
 (views/defview chat-list-item-inner-view [{:keys [chat-id name group-chat public? public-key] :as chat-item}]
-  (letsubs [photo-path [:get-chat-photo chat-id]
+  (letsubs [photo-path      [:get-chat-photo chat-id]
             current-chat-id [:get-current-chat-id]
-            last-message [:get-last-message chat-id]]
+            last-message    [:get-last-message chat-id]]
     (let [name (str
                  (if public? "#" "")
                  (or name
@@ -39,13 +39,13 @@
            [icons/icon :icons/group-chat])
          (when public?
            [icons/icon :icons/public-chat])
-         [react/text {:ellipsize-mode :tail
+         [react/text {:ellipsize-mode  :tail
                       :number-of-lines 1
-                      :style (styles/chat-name (= current-chat-id chat-id))}
+                      :style           (styles/chat-name (= current-chat-id chat-id))}
           name]]
-        [react/text {:ellipsize-mode :tail 
+        [react/text {:ellipsize-mode  :tail 
                      :number-of-lines 1
-                     :style styles/chat-last-message}
+                     :style           styles/chat-last-message}
          (:content last-message)]]
        [react/view
         [chat-item/message-timestamp last-message]

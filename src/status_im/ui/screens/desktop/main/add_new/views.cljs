@@ -4,6 +4,7 @@
             [status-im.ui.screens.add-new.new-public-chat.view :as public-chat]
             [status-im.ui.components.list.views :as list]
             [clojure.string :as string]
+            [status-im.i18n :as i18n]
             [re-frame.core :as re-frame]
             [status-im.ui.screens.desktop.main.add-new.styles :as styles]
             [status-im.ui.screens.add-new.new-public-chat.db :as public-chat-db]
@@ -14,23 +15,23 @@
 
 (views/defview new-contact []
   (views/letsubs [new-contact-identity [:get :contacts/new-identity]
-                  contacts      [:all-added-people-contacts]
-                  chat-error [:new-contact-error-message]
-                  topic [:get :public-group-topic]
-                  topic-error [:new-topic-error-message]
-                  account [:get-current-account]]
+                  contacts             [:all-added-people-contacts]
+                  chat-error           [:new-contact-error-message]
+                  topic                [:get :public-group-topic]
+                  topic-error          [:new-topic-error-message]
+                  account              [:get-current-account]]
     [react/scroll-view
      [react/view {:style styles/new-contact-view}
       ^{:key "newcontact"}
       [react/view {:style styles/new-contact-title}
        [react/text {:style styles/new-contact-title-text}
-        "New Chat"]]
-      [react/text {:style styles/new-contact-subtitle} "Contact code"]
+        (i18n/label :new-chat)]]
+      [react/text {:style styles/new-contact-subtitle} (i18n/label :contact-code)]
       [react/view {:style styles/new-contact-separator}]
       [react/view {:style styles/add-contact-edit-view}
        [react/text-input {:placeholder "0x..."
-                          :flex 1
-                          :style styles/add-contact-input
+                          :flex        1
+                          :style       styles/add-contact-input
                           :on-change   (fn [e]
                                          (let [native-event (.-nativeEvent e)
                                                text (.-text native-event)]
@@ -40,10 +41,10 @@
          {:style (styles/add-contact-button chat-error)} 
          [react/text 
           {:style (styles/add-contact-button-text chat-error)} 
-          "Start chat"]]]]
+          (i18n/label :start-chat)]]]]
       ^{:key "choosecontact"}
       [react/view
-       (when (seq contacts) [react/text {:style styles/new-contact-subtitle} "Or choose a contact"])
+       (when (seq contacts) [react/text {:style styles/new-contact-subtitle} (i18n/label :or-choose-a-contact)])
        [react/view {:style {:margin-top 12}} 
         (doall
           (for [c contacts]
@@ -52,28 +53,29 @@
                                                      (re-frame/dispatch [:set :contacts/new-identity (:whisper-identity c)])
                                                      (re-frame/dispatch [:add-contact-handler (:whisper-identity c)]))}
              [react/view {:style styles/suggested-contact-view}
-              [react/image {:style styles/suggested-contact-image
+              [react/image {:style  styles/suggested-contact-image
                             :source {:uri (:photo-path c)}}]
               [react/text {:style styles/new-contact-subtitle} (:name c)]]]))]]
       ^{:key "publicchat"}
       [react/view {:style styles/new-contact-title}
        [react/text {:style styles/new-contact-title-text}
-        "Join Public Chat"]]
-      [react/text {:style styles/new-contact-subtitle} "Topic"]
+        (i18n/label :new-public-group-chat)]]
+      [react/text {:style styles/new-contact-subtitle} (i18n/label :public-group-topic)]
       [react/view {:style styles/new-contact-separator}]
       [react/view {:style styles/add-contact-edit-view}
        [react/view {:style {:flex 1}}
         [react/text-input {:placeholder "#"
-                           :flex 1
-                           :style styles/add-contact-input
+                           :flex        1
+                           :style       styles/add-contact-input
                            :on-change   (fn [e]
                                           (let [native-event (.-nativeEvent e)
                                                 text (.-text native-event)]
                                             (re-frame/dispatch [:set :public-group-topic text])))}]]
        [react/touchable-highlight {:on-press #(when-not topic-error (re-frame/dispatch [:create-new-public-chat topic]))}
         [react/view {:style (styles/add-contact-button topic-error)}
-         [react/text {:style (styles/add-contact-button-text topic-error)} "Join public chat"]]]]
-      [react/text {:style styles/new-contact-subtitle} "Selected for you"]
+         [react/text {:style (styles/add-contact-button-text topic-error)}
+          (i18n/label :new-public-group-chat)]]]]
+      [react/text {:style styles/new-contact-subtitle} (i18n/label :selected-for-you)]
       [react/view {:style {:margin-top 12}} 
        (doall
          (for [topic public-chat/default-public-chats]

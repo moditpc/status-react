@@ -42,7 +42,7 @@
     [content active?]]])
 
 (views/defview main-tabs []
-  (views/letsubs [current-tab [:get-in [:desktop/desktop :tab-view-id] ]]
+  (views/letsubs [current-tab [:get-in [:desktop/desktop :tab-view-id]]]
     [react/view
      [react/view {:style tabs.styles/tabs-container}
       (for [[index {:keys [content view-id]}] tabs-list-indexed]
